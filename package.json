@@ -1,7 +1,7 @@
 {
   "name": "psgenerator",
-  "version": "1.0.0",
-  "private": false,
+  "version": "1.1.0",
+  "private": true,
   "engines": {
     "node": "^17.7.1"
   },

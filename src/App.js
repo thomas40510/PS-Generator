@@ -1,7 +1,7 @@
 /*
 PS Generator
 @author: PRV
-@version: 1.0.0
+@version: 1.1.0
  */
 
 import React from 'react';
@@ -13,8 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { withStyles } from '@material-ui/core/styles';
-import {EmailOutlined, FileCopy, FileCopyOutlined, FileCopyRounded} from "@material-ui/icons";
-import {IconButton, InputAdornment, Snackbar} from "@mui/material";
+import {EmailOutlined, FileCopyRounded} from "@material-ui/icons";
 
 
 const styles = theme => ({
@@ -52,15 +51,10 @@ const styles = theme => ({
   }
 });
 
-let open=false;
-
 class PsGenerator extends React.Component {
+  handleFocus = (event) => event.target.select();
+  placeholderText = 'Ceci est un texte random \nsans contenu particulier \npermettant d\'illustrer \ncomment ça marche \nen vrai...'
 
-
-  state = {
-    userName: '',
-    password: '',
-  }
 
   render() {
     const { classes } = this.props;
@@ -71,8 +65,12 @@ class PsGenerator extends React.Component {
           <Avatar className={classes.avatar}>
             <EmailOutlined />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Générateur de PS
+          <Typography component="h1" variant="h4">
+            The One And Only Générateur de PS
+          </Typography>
+
+          <Typography variant="h6" component="div">
+            For polyvalent engineers @ ENSTA Breton
           </Typography>
 
           <form className={classes.form} noValidate>
@@ -92,6 +90,8 @@ class PsGenerator extends React.Component {
               id="usrinput"
               label="Votre texte"
               name="userinput"
+              helperText="Entrez votre texte normalement, ligne après ligne"
+              placeholder={this.placeholderText}
               autoFocus
               multiline
               rows={8}
@@ -105,6 +105,7 @@ class PsGenerator extends React.Component {
               type="text"
               id="txtresult"
               multiline
+              onFocus={this.handleFocus}
               InputProps={{
                 readOnly: true,
 
@@ -140,7 +141,11 @@ class PsGenerator extends React.Component {
           </div>
 
         </div>
+        <footer style={{color: "gray", position: "fixed", bottom: 0}}>
+          <center>Made with ☕️ by Gustave — version v1.1.0</center>
+        </footer>
       </Container>
+
     );
   }
 }
