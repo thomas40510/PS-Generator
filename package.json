@@ -21,9 +21,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "heroku-prebuild": "npm install --only=dev",
-
-    "build": "npm run clean && webpack -p",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
