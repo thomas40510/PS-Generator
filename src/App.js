@@ -1,7 +1,7 @@
 /*
 PS Generator
 @author: PRV
-@version: 1.1.1
+@version: 1.1.2
  */
 
 import React from 'react';
@@ -69,13 +69,18 @@ const styles = theme => ({
   copy: {
     margin: theme.spacing(3, 6, 2),
     //width: '100pt',
+  },
+  link: {
+    margin: theme.spacing(6, 6, 2),
+    color: theme.palette.secondary.light,
   }
 });
 
 class PsGenerator extends React.Component {
   handleFocus = (event) => event.target.select();
   placeholderText = 'Ceci est un texte random \nsans contenu particulier \npermettant d\'illustrer \ncomment ça marche \nen vrai...'
-  versionTxt = '1.1.1';
+  versionTxt = '1.1.2';
+  donate = 'https://www.leetchi.com/c/don-au-profit-des-blesses-de-guerre-miliste-2022'
 
   render() {
     const { classes } = this.props;
@@ -92,6 +97,10 @@ class PsGenerator extends React.Component {
 
           <Typography variant="h6" component="div">
             For polyvalent engineers @ ENSTA Breton
+          </Typography>
+
+          <Typography variant="body2" component="div">
+            Sponsored by [votre nom de liste ici !]
           </Typography>
 
           <form className={classes.form} noValidate>
@@ -127,19 +136,9 @@ class PsGenerator extends React.Component {
               id="txtresult"
               multiline
               onFocus={this.handleFocus}
+              InputLabelProps={{shrink: true,}}
               InputProps={{
                 readOnly: true,
-
-/*
-              endAdornment:(
-                <InputAdornment position="end">
-                  <FileCopy
-                    aria-label="copy to clipboard"
-                    onClick={() => {navigator.clipboard.writeText(this.state.textToCopy)}}
-                    edge="end"
-                  />
-                </InputAdornment>),
-*/
               }}
             />
             <Grid container>
@@ -156,14 +155,15 @@ class PsGenerator extends React.Component {
           >
             Ça part !
           </Button><Button className={classes.copy}>
-            <FileCopyRounded
-            onClick={() => {navigator.clipboard.writeText(document.getElementById('txtresult').value); alert("Copié !");}}/>
+            <FileCopyRounded id="copyBtn"/>
           </Button>
           </div>
 
         </div>
         <footer style={{color: "gray", position: "fixed", bottom: 0}}>
-          <center>Made with ☕️ by Gustave — version {this.versionTxt}</center>
+          <center>Made with ☕️ by Gustave — version {this.versionTxt}
+            <a href={this.donate} className={classes.link} target="_blank">Faire un don à la miliste</a>
+          </center>
         </footer>
       </Container>
 

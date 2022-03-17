@@ -1,10 +1,13 @@
+/*
+PS Generator
+@author: PRV
+@version: 1.1.2
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-import Button from '@mui/material/Button';
-
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,6 +16,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 document.getElementById("btn").addEventListener("click", gen);
+document.getElementById('copyBtn').addEventListener('click', cpText);
 
 function gen(){
   let s = document.getElementById("usrinput").value.toString();
@@ -92,7 +96,13 @@ function chunkify(L, n, balanced) {
   return out;
 }
 
-
+function cpText(){
+  let txt = document.getElementById('txtresult').value;
+  setTimeout(async()=>console.log(
+    await window.navigator.clipboard.writeText(txt)), 3000)
+  //navigator.clipboard.writeText(txt);
+  alert("Copié !");
+}
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
