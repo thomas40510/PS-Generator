@@ -1,7 +1,7 @@
 /*
 PS Generator
 @author: PRV
-@version: 1.1.0
+@version: 1.1.1
  */
 
 import React from 'react';
@@ -12,9 +12,30 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import {EmailOutlined, FileCopyRounded} from "@material-ui/icons";
 
+// Import the functions you need from the SDKs you need
+import {initializeApp} from "firebase/app";
+import {getAnalytics} from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCk-Mf7AUYDMLNK_2hn4DuSZsT17QJJCtY",
+  authDomain: "ps-generator.firebaseapp.com",
+  projectId: "ps-generator",
+  storageBucket: "ps-generator.appspot.com",
+  messagingSenderId: "837321887718",
+  appId: "1:837321887718:web:cef4e66fb949ec780e1027",
+  measurementId: "G-ZC67LCFH9C"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 const styles = theme => ({
 
@@ -54,7 +75,7 @@ const styles = theme => ({
 class PsGenerator extends React.Component {
   handleFocus = (event) => event.target.select();
   placeholderText = 'Ceci est un texte random \nsans contenu particulier \npermettant d\'illustrer \ncomment ça marche \nen vrai...'
-
+  versionTxt = '1.1.1';
 
   render() {
     const { classes } = this.props;
@@ -142,7 +163,7 @@ class PsGenerator extends React.Component {
 
         </div>
         <footer style={{color: "gray", position: "fixed", bottom: 0}}>
-          <center>Made with ☕️ by Gustave — version v1.1.0</center>
+          <center>Made with ☕️ by Gustave — version {this.versionTxt}</center>
         </footer>
       </Container>
 
