@@ -1,7 +1,7 @@
 /*
 PS Generator
 @author: PRV
-@version: 1.1.2
+@version: 1.1.3
  */
 
 import React from 'react';
@@ -71,7 +71,6 @@ const styles = theme => ({
     //width: '100pt',
   },
   link: {
-    margin: theme.spacing(6, 6, 2),
     color: theme.palette.secondary.light,
   }
 });
@@ -160,9 +159,10 @@ class PsGenerator extends React.Component {
           </div>
 
         </div>
-        <footer style={{color: "gray", position: "fixed", bottom: 0}}>
+        <footer style={{color: "gray", position: "relative", bottom: 0, marginTop: 50}}>
           <center>Made with ☕️ by Gustave — version {this.versionTxt}
-            <a href={this.donate} className={classes.link} target="_blank">Faire un don à la miliste</a>
+            <br/>
+            <a href={this.donate} className={classes.link} target="_blank" rel="noreferrer">Faire un don à la miliste</a>
           </center>
         </footer>
       </Container>
