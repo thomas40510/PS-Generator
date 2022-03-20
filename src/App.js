@@ -78,7 +78,7 @@ const styles = theme => ({
 class PsGenerator extends React.Component {
   handleFocus = (event) => event.target.select();
   placeholderText = 'Ceci est un texte random \nsans contenu particulier \npermettant d\'illustrer \ncomment ça marche \nen vrai...'
-  versionTxt = '1.1.2';
+  versionTxt = '1.1.3';
   donate = 'https://www.leetchi.com/c/don-au-profit-des-blesses-de-guerre-miliste-2022'
 
   render() {
