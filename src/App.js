@@ -1,7 +1,7 @@
 /*
 PS Generator
 @author: PRV
-@version: 1.1.3
+@version: 1.1.4
  */
 
 import React from 'react';
@@ -78,8 +78,9 @@ const styles = theme => ({
 class PsGenerator extends React.Component {
   handleFocus = (event) => event.target.select();
   placeholderText = 'Ceci est un texte random \nsans contenu particulier \npermettant d\'illustrer \ncomment ça marche \nen vrai...'
-  versionTxt = '1.1.3';
-  donate = 'https://www.leetchi.com/c/don-au-profit-des-blesses-de-guerre-miliste-2022'
+  versionTxt = '1.1.4';
+  donate = 'https://www.onac-vg.fr/dons/';
+  sponsorLink = 'https://g.page/lacohez?share';
 
   render() {
     const { classes } = this.props;
@@ -99,7 +100,7 @@ class PsGenerator extends React.Component {
           </Typography>
 
           <Typography variant="body2" component="div">
-            Sponsored by [votre nom de liste ici !]
+            Sponsored by <a href={this.sponsorLink} className={classes.link} target="_blank" rel="noreferrer">La Cohèz'</a>
           </Typography>
 
           <form className={classes.form} noValidate>
@@ -162,7 +163,7 @@ class PsGenerator extends React.Component {
         <footer style={{color: "gray", position: "relative", bottom: 0, marginTop: 50}}>
           <center>Made with ☕️ by Gustave — version {this.versionTxt}
             <br/>
-            <a href={this.donate} className={classes.link} target="_blank" rel="noreferrer">Faire un don à la miliste</a>
+            <a href={this.donate} className={classes.link} target="_blank" rel="noreferrer">Faire un don au Bleuet</a>
           </center>
         </footer>
       </Container>
