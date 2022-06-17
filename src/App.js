@@ -1,7 +1,7 @@
 /*
 PS Generator
 @author: PRV
-@version: 1.2.1
+@version: 1.2.2
  */
 
 import React from 'react';
@@ -16,9 +16,6 @@ import {withStyles} from '@material-ui/core/styles';
 import {EmailOutlined, FileCopyRounded} from "@material-ui/icons";
 
 // Import the functions you need from the SDKs you need
-import {initializeApp} from "firebase/app";
-import {getAnalytics} from "firebase/analytics";
-import {fetchAndActivate, getRemoteConfig, getValue} from "firebase/remote-config";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -36,18 +33,21 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const remoteConfig = getRemoteConfig(app);
+// const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
+// const remoteConfig = getRemoteConfig(app);
 
 // set remoteConfig fetch interval
-remoteConfig.settings.minimumFetchIntervalMillis = 1000;
+// remoteConfig.settings.minimumFetchIntervalMillis = 1000;
 
+/*
 remoteConfig.defaultConfig = {
   "sponsorName": "La Cohèz'",
   "sponsorLink": "https://g.page/lacohez?share"
 };
+*/
 
+/*
 function getRemotes(){
   const sponsorNameFromRemote = getValue(remoteConfig, "sponsorName");
   const sponsorLinkFromRemote = getValue(remoteConfig, "sponsorLink");
@@ -64,6 +64,7 @@ function getRemotes(){
       console.log(err);
     });
 }
+*/
 
 
 
@@ -108,13 +109,13 @@ const styles = theme => ({
 class PsGenerator extends React.Component {
   handleFocus = (event) => event.target.select();
   placeholderText = 'Ceci est un texte random \nsans contenu particulier \npermettant d\'illustrer \ncomment ça marche \nen vrai...'
-  versionTxt = '1.2.1';
+  versionTxt = '1.2.2';
   donate = 'https://www.onac-vg.fr/dons/';
   sponsorLink = 'https://g.page/lacohez?share';
   sponsorName = "La Cohèz'";
 
   render() {
-    getRemotes();
+    // getRemotes();
     const { classes } = this.props;
     return (
       <Container component="main" maxWidth="xl">
