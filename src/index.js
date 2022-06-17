@@ -1,7 +1,7 @@
 /*
 PS Generator
 @author: PRV
-@version: 1.2.1
+@version: 1.2.3
  */
 
 import React from 'react';
@@ -23,7 +23,7 @@ function gen(){
   const n = document.getElementById('nbrPyramids').value;
   let L = s.split('\n');
   var res = "";
-  if (n==1){
+  if (n === 1){
     res = pyramid(L);
   } else{
     var M = chunkify(L, n, true);
@@ -103,6 +103,7 @@ function cpText(){
   //navigator.clipboard.writeText(txt);
   alert("Copié !");
 }
+
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

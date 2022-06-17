@@ -1,7 +1,7 @@
 /*
 PS Generator
 @author: PRV
-@version: 1.2.2
+@version: 1.2.3
  */
 
 import React from 'react';
@@ -18,6 +18,8 @@ import {EmailOutlined, FileCopyRounded} from "@material-ui/icons";
 // Import the functions you need from the SDKs you need
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+import {initializeApp} from "firebase/app";
+import {getAnalytics} from "firebase/analytics";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -33,21 +35,19 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+//console.log(analytics);
 // const remoteConfig = getRemoteConfig(app);
 
 // set remoteConfig fetch interval
-// remoteConfig.settings.minimumFetchIntervalMillis = 1000;
+/*remoteConfig.settings.minimumFetchIntervalMillis = 10000;
 
-/*
 remoteConfig.defaultConfig = {
   "sponsorName": "La Cohèz'",
   "sponsorLink": "https://g.page/lacohez?share"
 };
-*/
 
-/*
 function getRemotes(){
   const sponsorNameFromRemote = getValue(remoteConfig, "sponsorName");
   const sponsorLinkFromRemote = getValue(remoteConfig, "sponsorLink");
@@ -56,15 +56,18 @@ function getRemotes(){
     .then(() => {
       console.log(sponsorNameFromRemote);
       console.log(sponsorLinkFromRemote);
-      const sponsorPlace = document.getElementById("sponsor");
-      sponsorPlace.innerText = sponsorNameFromRemote._value;
-      sponsorPlace.href = sponsorLinkFromRemote._value;
+      // const sponsorPlace = document.getElementById("sponsor");
+      // sponsorPlace.innerText = sponsorNameFromRemote._value;
+      // sponsorPlace.href = sponsorLinkFromRemote._value;
     })
     .catch((err) => {
       console.log(err);
     });
-}
-*/
+
+  const sponsorName = sponsorNameFromRemote._value;
+  const sponsorLink = sponsorLinkFromRemote._value;
+  return ([sponsorName, sponsorLink]);
+}*/
 
 
 
@@ -109,13 +112,12 @@ const styles = theme => ({
 class PsGenerator extends React.Component {
   handleFocus = (event) => event.target.select();
   placeholderText = 'Ceci est un texte random \nsans contenu particulier \npermettant d\'illustrer \ncomment ça marche \nen vrai...'
-  versionTxt = '1.2.2';
+  versionTxt = '1.2.3';
   donate = 'https://www.onac-vg.fr/dons/';
   sponsorLink = 'https://g.page/lacohez?share';
   sponsorName = "La Cohèz'";
 
   render() {
-    // getRemotes();
     const { classes } = this.props;
     return (
       <Container component="main" maxWidth="xl">
@@ -146,6 +148,7 @@ class PsGenerator extends React.Component {
               label="Pyramides"
               variant="outlined"
             />
+
             <TextField
               variant="outlined"
               margin="normal"
@@ -201,7 +204,6 @@ class PsGenerator extends React.Component {
           </center>
         </footer>
       </Container>
-
     );
   }
 }
