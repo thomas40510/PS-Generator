@@ -1,7 +1,7 @@
 /*
 PS Generator
 @author: PRV
-@version: 1.1.4
+@version: 1.2.1
  */
 
 import React from 'react';

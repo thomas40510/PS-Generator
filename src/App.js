@@ -1,7 +1,7 @@
 /*
 PS Generator
 @author: PRV
-@version: 1.1.4
+@version: 1.2.1
  */
 
 import React from 'react';
@@ -18,11 +18,13 @@ import {EmailOutlined, FileCopyRounded} from "@material-ui/icons";
 // Import the functions you need from the SDKs you need
 import {initializeApp} from "firebase/app";
 import {getAnalytics} from "firebase/analytics";
+import {fetchAndActivate, getRemoteConfig, getValue} from "firebase/remote-config";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
   apiKey: "AIzaSyCk-Mf7AUYDMLNK_2hn4DuSZsT17QJJCtY",
   authDomain: "ps-generator.firebaseapp.com",
@@ -36,6 +38,34 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const remoteConfig = getRemoteConfig(app);
+
+// set remoteConfig fetch interval
+remoteConfig.settings.minimumFetchIntervalMillis = 1000;
+
+remoteConfig.defaultConfig = {
+  "sponsorName": "La Cohèz'",
+  "sponsorLink": "https://g.page/lacohez?share"
+};
+
+function getRemotes(){
+  const sponsorNameFromRemote = getValue(remoteConfig, "sponsorName");
+  const sponsorLinkFromRemote = getValue(remoteConfig, "sponsorLink");
+
+  fetchAndActivate(remoteConfig)
+    .then(() => {
+      console.log(sponsorNameFromRemote);
+      console.log(sponsorLinkFromRemote);
+      const sponsorPlace = document.getElementById("sponsor");
+      sponsorPlace.innerText = sponsorNameFromRemote._value;
+      sponsorPlace.href = sponsorLinkFromRemote._value;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+
 
 const styles = theme => ({
 
@@ -78,11 +108,13 @@ const styles = theme => ({
 class PsGenerator extends React.Component {
   handleFocus = (event) => event.target.select();
   placeholderText = 'Ceci est un texte random \nsans contenu particulier \npermettant d\'illustrer \ncomment ça marche \nen vrai...'
-  versionTxt = '1.1.4';
+  versionTxt = '1.2.1';
   donate = 'https://www.onac-vg.fr/dons/';
   sponsorLink = 'https://g.page/lacohez?share';
+  sponsorName = "La Cohèz'";
 
   render() {
+    getRemotes();
     const { classes } = this.props;
     return (
       <Container component="main" maxWidth="xl">
@@ -100,7 +132,8 @@ class PsGenerator extends React.Component {
           </Typography>
 
           <Typography variant="body2" component="div">
-            Sponsored by <a href={this.sponsorLink} className={classes.link} target="_blank" rel="noreferrer">La Cohèz'</a>
+            Sponsored by <a href={this.sponsorLink} className={classes.link}
+                            target="_blank" rel="noreferrer" id="sponsor">{this.sponsorName}</a>
           </Typography>
 
           <form className={classes.form} noValidate>
