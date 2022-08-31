@@ -1,25 +1,29 @@
 /*
 PS Generator
 @author: PRV
-@version: 1.2.3
+@version: 1.3.0
  */
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App, {txtContent} from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App/>
   </React.StrictMode>,
   document.getElementById('root')
 );
+
 document.getElementById("btn").addEventListener("click", gen);
 document.getElementById('copyBtn').addEventListener('click', cpText);
 
 function gen(){
-  let s = document.getElementById("usrinput").value.toString();
+  //let s = document.getElementById("usrinput").textContent;
+  console.log(txtContent.txt);
+  let s = txtContent.txt;
+  console.log(s);
   const n = document.getElementById('nbrPyramids').value;
   let L = s.split('\n');
   var res = "";
@@ -32,7 +36,10 @@ function gen(){
     }
   }
   console.log(res);
-  document.getElementById('txtresult').value = res.toString();
+  //document.getElementById('txtresult').value = res.toString();
+  txtContent.result = res.toString();
+  console.log("result >> "+txtContent.result);
+  document.getElementById('txtresult').innerHTML = res.toString().replaceAll("<p>", "").replaceAll("</p>", "<br>");
   document.getElementById('txtresult').focus();
 }
 
@@ -97,7 +104,8 @@ function chunkify(L, n, balanced) {
 }
 
 function cpText(){
-  let txt = document.getElementById('txtresult').value;
+  //let txt = document.getElementById('txtresult').value;
+  let txt = document.getElementById("txtrich").text;
   setTimeout(async()=>console.log(
     await window.navigator.clipboard.writeText(txt)), 3000)
   //navigator.clipboard.writeText(txt);

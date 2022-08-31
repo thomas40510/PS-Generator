@@ -1,7 +1,7 @@
 /*
 PS Generator
 @author: PRV
-@version: 1.2.3
+@version: 1.3.0
  */
 
 import React from 'react';
@@ -9,29 +9,32 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import {withStyles} from '@material-ui/core/styles';
 import {EmailOutlined, FileCopyRounded} from "@material-ui/icons";
+import {Editor} from '@tinymce/tinymce-react';
 
 // Import the functions you need from the SDKs you need
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import {initializeApp} from "firebase/app";
 import {getAnalytics} from "firebase/analytics";
+import {Box} from "@mui/material";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
+//useful : https://react-select.com/home
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCk-Mf7AUYDMLNK_2hn4DuSZsT17QJJCtY",
-  authDomain: "ps-generator.firebaseapp.com",
-  projectId: "ps-generator",
-  storageBucket: "ps-generator.appspot.com",
-  messagingSenderId: "837321887718",
-  appId: "1:837321887718:web:cef4e66fb949ec780e1027",
-  measurementId: "G-ZC67LCFH9C"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_SENDERID,
+  appId: process.env.REACT_APP_FIREBASE_APPID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID
 };
 
 // Initialize Firebase
@@ -109,13 +112,45 @@ const styles = theme => ({
   }
 });
 
+export class txtContent{
+  txt = "";
+  result = "<b>random text</b>";
+}
+
 class PsGenerator extends React.Component {
-  handleFocus = (event) => event.target.select();
+  constructor(props) {
+    super(props);
+    this.state = {content: ""};
+    this.handleEditorChange = this.handleEditorChange.bind(this);
+    txtContent.result = "Vos 💫merveilleux💫 PS";
+  }
+
+  handleFocus = (event) => {
+    const selection = window.getSelection();
+    const res = document.getElementsByClassName("result");
+    const range = document.createRange();
+    range.selectNodeContents(res[0]);
+    selection.removeAllRanges();
+    selection.addRange(range);
+  }
   placeholderText = 'Ceci est un texte random \nsans contenu particulier \npermettant d\'illustrer \ncomment ça marche \nen vrai...'
-  versionTxt = '1.2.3';
+  versionTxt = process.env.REACT_APP_VERSION_NUMBER;
   donate = 'https://www.onac-vg.fr/dons/';
-  sponsorLink = 'https://g.page/lacohez?share';
-  sponsorName = "La Cohèz'";
+  sponsorLink = process.env.REACT_APP_SPONSORLINK;
+  sponsorName = process.env.REACT_APP_SPONSORNAME;
+
+  handleEditorChange(content, editor){
+    this.setState({content: editor.getText});
+    //txt = editor.getContent();
+    txtContent.txt = editor.getContent();
+  }
+
+  htmlDecode(input){
+    const e = document.createElement('div');
+    e.innerHTML = input;
+    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+  }
+
 
   render() {
     const { classes } = this.props;
@@ -149,6 +184,7 @@ class PsGenerator extends React.Component {
               variant="outlined"
             />
 
+{/*         // ancienne formule
             <TextField
               variant="outlined"
               margin="normal"
@@ -163,6 +199,28 @@ class PsGenerator extends React.Component {
               multiline
               rows={8}
             />
+*/}
+            <Editor
+              apiKey={process.env.REACT_APP_TINYMCEAPIKEY}
+              value={this.state.content}
+              required
+              fullWidth
+              init={{
+                height: 500,
+                menubar: false,
+                toolbar: "undo redo | bold italic underline strikethrough | fontfamily fontsize | forecolor backcolor removeformat | emoticons",
+                fontsize_formats: "8pt 9pt 10pt 11pt 12pt 14pt 18pt 20pt 22pt 24pt 26pt 28pt 36pt 48pt 72pt",
+                content_style: "body {line-height: .5;}",
+              }}
+              onChange={this.handleEditorChange}
+              id='usrinput'
+              />
+
+
+
+
+
+{/*         // ancienne version
             <TextField
               variant="outlined"
               margin="normal"
@@ -172,15 +230,35 @@ class PsGenerator extends React.Component {
               type="text"
               id="txtresult"
               multiline
+              //dangerouslySetInnerHTML={{__html: this.htmlDecode(txtContent.result)}}
               onFocus={this.handleFocus}
               InputLabelProps={{shrink: true,}}
               InputProps={{
                 readOnly: true,
               }}
             />
-            <Grid container>
+*/}
 
-            </Grid>
+            <Box
+              component="div"
+              sx={{
+                p: 2,
+                border: '1px solid gray',
+                borderRadius: '10px',
+                marginTop: '20px',
+              }}
+              title="Vos PS"
+              >
+              <p
+                class="result"
+                id="txtresult"
+                dangerouslySetInnerHTML={{__html: this.htmlDecode(txtContent.result)}}
+                onClick={this.handleFocus}
+                onFocus={this.handleFocus}
+                onChange={this.handleFocus}
+
+              />
+            </Box>
           </form>
           <div>
           <Button
