@@ -1,13 +1,14 @@
 /*
 PS Generator
 @author: PRV
-@version: 1.3.0
+@version: 1.3.1
  */
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App, {txtContent} from './App';
+import * as clipboard from "clipboard-js"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,7 +18,7 @@ ReactDOM.render(
 );
 
 document.getElementById("btn").addEventListener("click", gen);
-document.getElementById('copyBtn').addEventListener('click', cpText);
+document.getElementById('copyBtn').addEventListener('click', copyToClip);
 
 function gen(){
   //let s = document.getElementById("usrinput").textContent;
@@ -104,12 +105,27 @@ function chunkify(L, n, balanced) {
 }
 
 function cpText(){
-  //let txt = document.getElementById('txtresult').value;
-  let txt = document.getElementById("txtrich").text;
+  /* --DEPRECATED--
+  Copies resulting text to clipboard
+   */
+  let txt = document.getElementById('txtresult').textContent;
   setTimeout(async()=>console.log(
     await window.navigator.clipboard.writeText(txt)), 3000)
   //navigator.clipboard.writeText(txt);
   alert("Copié !");
+}
+
+function copyToClip(){
+  /*
+  Fixes clipboard problem and enables copy of rich text using clipboard-js module
+   */
+  let str = document.getElementById('txtresult').innerHTML;
+  let fallBackStr = document.getElementById('txtresult').innerText;
+  clipboard.copy({
+    "text/plain": fallBackStr,
+    "text/html": str,
+  });
+  console.log('copied');
 }
 
 // If you want to start measuring performance in your app, pass a function
