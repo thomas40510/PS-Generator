@@ -1,7 +1,7 @@
 # The One And Only PS Generator!
 
 ![GitHub version](https://img.shields.io/github/v/release/thomas40510/PS-Generator?display_name=tag)
-![Github checks](https://img.shields.io/github/checks-status/thomas40510/PS-Generator/master)
+![Deployment](https://img.shields.io/github/deployments/thomas40510/PS-Generator/ps-gen)
 
 Web App de génération automatique de PS pour faciliter 
 la vie associative des étudiants de l'ENSTA Breton.
