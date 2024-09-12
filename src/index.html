@@ -64,10 +64,8 @@
             crossorigin="anonymous"
     ></script>
 
-    <script
-            src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js"
-            referrerpolicy="origin"
-    ></script>
+    <script src="https://cdn.tiny.cloud/1/isgykoss32767fueg9b4i2bmq6au09tmf2s8p5gfsoa9fp6e/tinymce/7/tinymce.min.js"
+            referrerpolicy="origin"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-jquery@2/dist/tinymce-jquery.min.js"></script>
 
 </head>
@@ -128,6 +126,19 @@
 
             </div>
         </div>
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-layout mdl-js-layout">
+            <button id="get-content" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Get Content
+            </button>
+            <script>
+                $("#get-content").click(function () {
+                    alert(tinymce.activeEditor.getContent());
+                });
+            </script>
+
+        </div>
+        <!-- Centered material button to get the content -->
         <footer class="demo-footer mdl-mini-footer">
             <div class="mdl-mini-footer--left-section">
                 <ul class="mdl-mini-footer--link-list">
